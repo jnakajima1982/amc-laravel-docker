@@ -34,3 +34,18 @@ services:
     - ./docker/db/sql:/docker-entrypoint-initdb.d
     ports:
     - 3306:3306
+    
+ volumes:
+  pma-session-store:
+
+services:
+  pma:
+    image: phpmyadmin/phpmyadmin:5.0.2
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=secret
+    ports:
+      - 8080:80
+    volumes:
+      - pma-session-store:/sessions
